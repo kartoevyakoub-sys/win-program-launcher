@@ -1,0 +1,884 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Windows Setup Hub — Быстрый набор программ</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --panel: #141b24;
+      --card: #1a2330;
+      --card-hover: #202b3b;
+      --border: #2a374b;
+      --text: #e8eef6;
+      --muted: #95a6be;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --tag-bg: #223044;
+      --warn-bg: #362312;
+      --warn-border: #854d0e;
+      --warn-text: #fde68a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h1 {
+      font-size: 21px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    input[type="search"] {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      min-width: 220px;
+      outline: none;
+    }
+
+    input[type="search"]:focus {
+      border-color: var(--accent);
+    }
+
+    button {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    button:hover {
+      background: var(--card-hover);
+      border-color: #3a4c66;
+    }
+
+    button.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    button.primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .notice {
+      display: none;
+      background: var(--warn-bg);
+      border: 1px solid var(--warn-border);
+      color: var(--warn-text);
+      padding: 10px 14px;
+      border-radius: 9px;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    .profiles-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+    }
+
+    .profiles-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+      margin-right: 4px;
+    }
+
+    .profile-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 12px;
+      border-radius: 7px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .profile-btn:hover {
+      border-color: var(--accent);
+      background: #212e42;
+    }
+
+    .profile-btn.active {
+      background: rgba(59, 130, 246, 0.2);
+      border-color: var(--accent);
+      color: #93c5fd;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .tab {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .section {
+      margin-bottom: 26px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .section-count {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 12px;
+    }
+
+    .item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .item:hover {
+      border-color: #354761;
+    }
+
+    .item-left {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .item-left input[type="checkbox"] {
+      margin-top: 3px;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      cursor: pointer;
+      accent-color: var(--accent);
+    }
+
+    .item-body {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .item-name {
+      font-size: 14px;
+      font-weight: 600;
+      overflow-wrap: anywhere;
+    }
+
+    .item-desc {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 3px;
+      overflow-wrap: anywhere;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 7px;
+      font-size: 11px;
+      background: var(--tag-bg);
+      color: #b4c4da;
+      padding: 2px 8px;
+      border-radius: 5px;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .open-link {
+      text-align: center;
+      text-decoration: none;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 12px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .open-link:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .open-link.zip-btn {
+      border-color: #2c4e82;
+      color: #93c5fd;
+    }
+
+    .empty {
+      color: var(--muted);
+      font-size: 14px;
+      padding: 28px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Windows Setup Hub — Быстрая настройка ПК</h1>
+        <div class="subtitle">Отметь нужное или выбери профиль и открой ссылки на скачивание в браузере</div>
+      </div>
+      <div class="toolbar">
+        <input id="searchInput" type="search" placeholder="Поиск программы или задачи..." />
+        <button id="clearChecksBtn" type="button">Снять выбор</button>
+        <button id="downloadZipsBtn" type="button">ZIP отмеченных (<span id="zipCount">0</span>)</button>
+        <button id="openSelectedBtn" class="primary" type="button">Открыть отмеченные (<span id="selectedCount">0</span>)</button>
+      </div>
+    </header>
+
+    <div id="popupNotice" class="notice">
+      Браузер мог заблокировать часть новых вкладок. Разреши всплывающие окна для этого адреса/файла и нажми «Открыть отмеченные» ещё раз.
+    </div>
+
+    <div id="profilesBar" class="profiles-bar">
+      <span class="profiles-label">Профили:</span>
+    </div>
+
+    <div id="tabs" class="tabs"></div>
+    <main id="content"></main>
+  </div>
+
+  <script>
+    const DATA = [
+      {
+        id: "browsers",
+        title: "Браузеры",
+        items: [
+          {
+            id: "chrome",
+            name: "Google Chrome",
+            desc: "Основной браузер для большинства пользователей",
+            tag: "Оф. сайт",
+            url: "https://www.google.com/chrome/",
+            zipUrl: ""
+          },
+          {
+            id: "firefox",
+            name: "Mozilla Firefox",
+            desc: "Быстрый и гибкий браузер, хорош в том числе на слабом железе",
+            tag: "Оф. сайт",
+            url: "https://www.mozilla.org/ru/firefox/new/",
+            zipUrl: ""
+          },
+          {
+            id: "yandex-browser",
+            name: "Яндекс Браузер",
+            desc: "Популярный браузер в РФ со встроенными сервисами",
+            tag: "Оф. сайт",
+            url: "https://browser.yandex.ru/",
+            zipUrl: ""
+          },
+          {
+            id: "brave",
+            name: "Brave Browser",
+            desc: "Браузер на Chromium со встроенной блокировкой рекламы и трекеров",
+            tag: "Оф. сайт",
+            url: "https://brave.com/download/",
+            zipUrl: ""
+          },
+          {
+            id: "zen",
+            name: "Zen Browser",
+            desc: "Современный минималистичный браузер на базе Firefox",
+            tag: "GitHub",
+            url: "https://github.com/zen-browser/desktop/releases",
+            zipUrl: ""
+          }
+        ]
+      },
+      {
+        id: "antivirus-security",
+        title: "Антивирусы и безопасность",
+        items: [
+          {
+            id: "kaspersky-free",
+            name: "Kaspersky Free / Антивирус",
+            desc: "Защита ПК и проверка файлов в реальном времени",
+            tag: "Оф. сайт",
+            url: "https://www.kaspersky.ru/downloads/free-antivirus",
+            zipUrl: ""
+          },
+          {
+            id: "drweb-cureit",
+            name: "Dr.Web CureIt!",
+            desc: "Бесплатная лечащая утилита для быстрой проверки заражённой системы",
+            tag: "Оф. сайт",
+            url: "https://free.drweb.ru/cureit/",
+            zipUrl: ""
+          },
+          {
+            id: "malwarebytes",
+            name: "Malwarebytes",
+            desc: "Сканер рекламного ПО, троянов и нежелательных модулей",
+            tag: "Оф. сайт",
+            url: "https://www.malwarebytes.com/mwb-download",
+            zipUrl: ""
+          },
+          {
+            id: "kvrt",
+            name: "Kaspersky Virus Removal Tool",
+            desc: "Портативный сканер для глубокой проверки после лечения ПК",
+            tag: "Оф. сайт",
+            url: "https://www.kaspersky.ru/downloads/free-virus-removal-tool",
+            zipUrl: ""
+          }
+        ]
+      },
+      {
+        id: "bypass-vpn",
+        title: "Обход блокировок и VPN",
+        items: [
+          {
+            id: "zapret",
+            name: "zapret (Discord / YouTube)",
+            desc: "Актуальные сборки обхода DPI для YouTube, Discord и сервисов",
+            tag: "GitHub",
+            url: "https://github.com/Flowseal/zapret-discord-youtube/releases",
+            zipUrl: ""
+          },
+          {
+            id: "goodbyedpi",
+            name: "GoodbyeDPI",
+            desc: "Лёгкий классический обход DPI для Windows",
+            tag: "GitHub",
+            url: "https://github.com/ValdikSS/GoodbyeDPI/releases",
+            zipUrl: ""
+          },
+          {
+            id: "happ",
+            name: "Happ",
+            desc: "Удобный клиент для ключей и подписок",
+            tag: "GitHub",
+            url: "https://github.com/Happ-proxy/happ-desktop/releases",
+            zipUrl: ""
+          },
+          {
+            id: "hiddify",
+            name: "Hiddify Next",
+            desc: "Кроссплатформенный клиент для VLESS / Reality / Xray",
+            tag: "GitHub",
+            url: "https://github.com/hiddify/hiddify-app/releases",
+            zipUrl: ""
+          },
+          {
+            id: "amnezia",
+            name: "AmneziaVPN",
+            desc: "Клиент с поддержкой протоколов обфускации",
+            tag: "GitHub",
+            url: "https://github.com/amnezia-vpn/amnezia-client/releases",
+            zipUrl: ""
+          },
+          {
+            id: "v2rayn",
+            name: "v2rayN",
+            desc: "Гибкий прокси-клиент под Windows",
+            tag: "GitHub",
+            url: "https://github.com/2dust/v2rayN/releases",
+            zipUrl: ""
+          }
+        ]
+      },
+      {
+        id: "messengers-remote",
+        title: "Мессенджеры и удалённый доступ",
+        items: [
+          {
+            id: "telegram",
+            name: "Telegram Desktop",
+            desc: "Официальный десктоп-клиент Telegram",
+            tag: "Оф. сайт",
+            url: "https://desktop.telegram.org/",
+            zipUrl: ""
+          },
+          {
+            id: "ayugram",
+            name: "AyuGram Desktop",
+            desc: "Форк Telegram Desktop с расширенными настройками",
+            tag: "GitHub",
+            url: "https://github.com/AyuGram/AyuGramDesktop/releases",
+            zipUrl: ""
+          },
+          {
+            id: "whatsapp",
+            name: "WhatsApp для Windows",
+            desc: "Настольный мессенджер WhatsApp",
+            tag: "Оф. сайт",
+            url: "https://www.whatsapp.com/download",
+            zipUrl: ""
+          },
+          {
+            id: "anydesk",
+            name: "AnyDesk",
+            desc: "Быстрый удалённый доступ для поддержки клиентов",
+            tag: "Оф. сайт",
+            url: "https://anydesk.com/ru/downloads/windows",
+            zipUrl: ""
+          },
+          {
+            id: "rustdesk",
+            name: "RustDesk",
+            desc: "Открытый клиент удалённого доступа",
+            tag: "GitHub",
+            url: "https://github.com/rustdesk/rustdesk/releases",
+            zipUrl: ""
+          }
+        ]
+      },
+      {
+        id: "torrents-media",
+        title: "Торренты и медиа",
+        items: [
+          {
+            id: "qbittorrent",
+            name: "qBittorrent",
+            desc: "Лёгкий и чистый торрент-клиент без лишней рекламы",
+            tag: "Оф. сайт",
+            url: "https://www.qbittorrent.org/download",
+            zipUrl: ""
+          },
+          {
+            id: "vlc",
+            name: "VLC Media Player",
+            desc: "Всеядный видео- и аудиоплеер со встроенными кодеками",
+            tag: "Оф. сайт",
+            url: "https://www.videolan.org/vlc/",
+            zipUrl: ""
+          },
+          {
+            id: "mpc-be",
+            name: "MPC-BE",
+            desc: "Лёгкий плеер для видео, хорошо идёт на старом железе",
+            tag: "GitHub",
+            url: "https://sourceforge.net/projects/mpcbe/",
+            zipUrl: ""
+          },
+          {
+            id: "aimp",
+            name: "AIMP",
+            desc: "Удобный аудиоплеер и конвертер музыки",
+            tag: "Оф. сайт",
+            url: "https://www.aimp.ru/",
+            zipUrl: ""
+          }
+        ]
+      },
+      {
+        id: "archivers-system",
+        title: "Архиваторы, системное и диагностика",
+        items: [
+          {
+            id: "7zip",
+            name: "7-Zip",
+            desc: "Быстрый архиватор (ZIP, 7z, RAR, ISO, TAR)",
+            tag: "Оф. сайт",
+            url: "https://www.7-zip.org/",
+            zipUrl: ""
+          },
+          {
+            id: "winrar",
+            name: "WinRAR",
+            desc: "Классический архиватор для работы с архивами",
+            tag: "Оф. сайт",
+            url: "https://www.win-rar.com/download.html",
+            zipUrl: ""
+          },
+          {
+            id: "vcredist",
+            name: "Visual C++ Redistributable (TechPowerUp)",
+            desc: "Библиотеки Visual C++ для запуска игр и программ",
+            tag: "Релиз / Сайт",
+            url: "https://www.techpowerup.com/download/visual-c-redistributable-runtime-package-all-in-one/",
+            zipUrl: ""
+          },
+          {
+            id: "directx-web",
+            name: "DirectX End-User Runtime",
+            desc: "Компоненты DirectX для старых и новых приложений",
+            tag: "Microsoft",
+            url: "https://www.microsoft.com/en-us/download/details.aspx?id=35",
+            zipUrl: ""
+          },
+          {
+            id: "crystaldiskinfo",
+            name: "CrystalDiskInfo",
+            desc: "SMART-диагностика HDD / SSD и проверка здоровья накопителей",
+            tag: "Оф. сайт",
+            url: "https://crystalmark.info/en/software/crystaldiskinfo/",
+            zipUrl: ""
+          },
+          {
+            id: "cpuz",
+            name: "CPU-Z",
+            desc: "Характеристики процессора, ОЗУ, материнской платы и видеокарты",
+            tag: "Оф. сайт",
+            url: "https://www.cpuid.com/softwares/cpu-z.html",
+            zipUrl: ""
+          },
+          {
+            id: "hwmonitor",
+            name: "HWMonitor",
+            desc: "Мониторинг температур, напряжений и оборотов кулеров",
+            tag: "Оф. сайт",
+            url: "https://www.cpuid.com/softwares/hwmonitor.html",
+            zipUrl: ""
+          },
+          {
+            id: "wiztree",
+            name: "WizTree",
+            desc: "Мгновенный анализ, какие папки и файлы забивают диск",
+            tag: "Оф. сайт",
+            url: "https://diskanalyzer.com/",
+            zipUrl: ""
+          },
+          {
+            id: "revo-uninstaller",
+            name: "Revo Uninstaller Free",
+            desc: "Удаление программ вместе с хвостами в реестре и папках",
+            tag: "Оф. сайт",
+            url: "https://www.revouninstaller.com/products/revo-uninstaller-free/",
+            zipUrl: ""
+          }
+        ]
+      }
+    ];
+
+    const PROFILES = [
+      {
+        id: "fast-setup",
+        name: "Быстрый старт клиента",
+        itemIds: ["chrome", "telegram", "whatsapp", "anydesk", "7zip", "vlc", "qbittorrent", "kaspersky-free"]
+      },
+      {
+        id: "rf-full-access",
+        name: "Обходы + связь (РФ)",
+        itemIds: ["zapret", "happ", "hiddify", "amnezia", "telegram", "ayugram", "chrome", "7zip"]
+      },
+      {
+        id: "virus-cleanup",
+        name: "Лечение и проверка ПК",
+        itemIds: ["drweb-cureit", "kvrt", "malwarebytes", "revo-uninstaller", "wiztree", "crystaldiskinfo"]
+      },
+      {
+        id: "weak-pc",
+        name: "Слабый / старый ПК",
+        itemIds: ["firefox", "mpc-be", "aimp", "7zip", "goodbyedpi", "anydesk", "crystaldiskinfo", "cpuz"]
+      },
+      {
+        id: "all-in",
+        name: "Максимум (всё подряд)",
+        itemIds: DATA.flatMap((sec) => sec.items.map((it) => it.id))
+      }
+    ];
+
+    const itemsById = new Map();
+    for (const sec of DATA) {
+      for (const it of sec.items) {
+        itemsById.set(it.id, it);
+      }
+    }
+
+    let activeCategory = "all";
+    let activeProfile = null;
+    const selectedIds = new Set();
+
+    const profilesBarEl = document.getElementById("profilesBar");
+    const tabsEl = document.getElementById("tabs");
+    const contentEl = document.getElementById("content");
+    const searchInput = document.getElementById("searchInput");
+    const selectedCountEl = document.getElementById("selectedCount");
+    const zipCountEl = document.getElementById("zipCount");
+    const openSelectedBtn = document.getElementById("openSelectedBtn");
+    const downloadZipsBtn = document.getElementById("downloadZipsBtn");
+    const clearChecksBtn = document.getElementById("clearChecksBtn");
+    const popupNoticeEl = document.getElementById("popupNotice");
+
+    function getSelectedZipItems() {
+      const list = [];
+      for (const id of selectedIds) {
+        const it = itemsById.get(id);
+        if (it && it.zipUrl) list.push(it);
+      }
+      return list;
+    }
+
+    function updateCounter() {
+      selectedCountEl.textContent = String(selectedIds.size);
+      zipCountEl.textContent = String(getSelectedZipItems().length);
+    }
+
+    function applyProfile(profile) {
+      selectedIds.clear();
+      for (const id of profile.itemIds) {
+        if (itemsById.has(id)) {
+          selectedIds.add(id);
+        }
+      }
+      activeProfile = profile.id;
+      updateCounter();
+      renderProfiles();
+      renderContent();
+    }
+
+    function renderProfiles() {
+      const labelHtml = `<span class="profiles-label">Профили:</span>`;
+      const buttonsHtml = PROFILES.map(
+        (prof) =>
+          `<button type="button" class="profile-btn ${activeProfile === prof.id ? "active" : ""}" data-profile="${prof.id}">${prof.name}</button>`
+      ).join("");
+      profilesBarEl.innerHTML = labelHtml + buttonsHtml;
+
+      profilesBarEl.querySelectorAll(".profile-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const found = PROFILES.find((p) => p.id === btn.dataset.profile);
+          if (found) applyProfile(found);
+        });
+      });
+    }
+
+    function renderTabs() {
+      const allTab = `<button type="button" class="tab ${activeCategory === "all" ? "active" : ""}" data-cat="all">Все разделы</button>`;
+      const catTabs = DATA.map(
+        (sec) => `<button type="button" class="tab ${activeCategory === sec.id ? "active" : ""}" data-cat="${sec.id}">${sec.title}</button>`
+      ).join("");
+      tabsEl.innerHTML = allTab + catTabs;
+
+      tabsEl.querySelectorAll(".tab").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          activeCategory = btn.dataset.cat;
+          renderTabs();
+          renderContent();
+        });
+      });
+    }
+
+    function renderContent() {
+      const query = searchInput.value.trim().toLowerCase();
+
+      const filteredSections = DATA
+        .filter((sec) => activeCategory === "all" || sec.id === activeCategory)
+        .map((sec) => {
+          const items = sec.items.filter(
+            (it) =>
+              !query ||
+              it.name.toLowerCase().includes(query) ||
+              it.desc.toLowerCase().includes(query) ||
+              it.tag.toLowerCase().includes(query)
+          );
+          return { ...sec, items };
+        })
+        .filter((sec) => sec.items.length > 0);
+
+      if (filteredSections.length === 0) {
+        contentEl.innerHTML = `<div class="empty">Ничего не найдено. Измени запрос или выбери другой раздел.</div>`;
+        return;
+      }
+
+      contentEl.innerHTML = filteredSections
+        .map(
+          (sec) => `
+          <section class="section">
+            <div class="section-header">
+              <h2 class="section-title">${sec.title}</h2>
+              <span class="section-count">${sec.items.length} поз.</span>
+            </div>
+            <div class="grid">
+              ${sec.items
+                .map((it) => {
+                  const checked = selectedIds.has(it.id) ? "checked" : "";
+                  const zipBtn = it.zipUrl
+                    ? `<a class="open-link zip-btn" href="${it.zipUrl}" download>ZIP</a>`
+                    : "";
+                  return `
+                    <div class="item">
+                      <div class="item-left">
+                        <input type="checkbox" data-id="${it.id}" ${checked} />
+                        <div class="item-body">
+                          <div class="item-name">${it.name}</div>
+                          <div class="item-desc">${it.desc}</div>
+                          <span class="badge">${it.tag}</span>
+                        </div>
+                      </div>
+                      <div class="actions">
+                        <a class="open-link" href="${it.url}" target="_blank" rel="noopener noreferrer">Открыть</a>
+                        ${zipBtn}
+                      </div>
+                    </div>
+                  `;
+                })
+                .join("")}
+            </div>
+          </section>
+        `
+        )
+        .join("");
+
+      contentEl.querySelectorAll('input[type="checkbox"]').forEach((box) => {
+        box.addEventListener("change", () => {
+          const id = box.dataset.id;
+          if (box.checked) {
+            selectedIds.add(id);
+          } else {
+            selectedIds.delete(id);
+          }
+          activeProfile = null;
+          updateCounter();
+          renderProfiles();
+        });
+      });
+    }
+
+    searchInput.addEventListener("input", renderContent);
+
+    clearChecksBtn.addEventListener("click", () => {
+      selectedIds.clear();
+      activeProfile = null;
+      popupNoticeEl.style.display = "none";
+      updateCounter();
+      renderProfiles();
+      renderContent();
+    });
+
+    openSelectedBtn.addEventListener("click", () => {
+      if (selectedIds.size === 0) return;
+      const urls = [];
+      for (const id of selectedIds) {
+        const item = itemsById.get(id);
+        if (item && item.url) urls.push(item.url);
+      }
+      if (urls.length === 0) return;
+
+      urls.forEach((url, idx) => {
+        setTimeout(() => {
+          const win = window.open(url, "_blank", "noopener,noreferrer");
+          if (!win && idx > 0) {
+            popupNoticeEl.style.display = "block";
+          }
+        }, idx * 280);
+      });
+    });
+
+    downloadZipsBtn.addEventListener("click", () => {
+      const zipItems = getSelectedZipItems();
+      if (zipItems.length === 0) return;
+
+      zipItems.forEach((it, idx) => {
+        setTimeout(() => {
+          const a = document.createElement("a");
+          a.href = it.zipUrl;
+          a.download = `${it.id}.zip`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }, idx * 300);
+      });
+    });
+
+    renderProfiles();
+    renderTabs();
+    renderContent();
+    updateCounter();
+  </script>
+</body>
+</html>
