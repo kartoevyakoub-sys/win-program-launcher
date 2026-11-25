@@ -1,9 +1,12 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Windows Setup Hub — Быстрый набор программ</title>
+  <!-- Иконка сайта для вкладки и окна --app (положи файлы в папку images/) -->
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="images/icon.svg" />
   <style>
     :root {
       --bg: #0d1117;
@@ -247,6 +250,27 @@
       accent-color: var(--accent);
     }
 
+    /* /* Место под иконку программы (раскомментируй при добавлении иконок) */
+    .app-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .app-icon svg,
+    .app-icon img {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+    
+
     .item-body {
       min-width: 0;
       flex: 1;
@@ -317,7 +341,7 @@
   <div class="container">
     <header>
       <div>
-        <h1>Windows Setup Hub — Быстрая настройка ПК</h1>
+        <h1>Windows Setup Hub — Быстрый набор программ</h1>
         <div class="subtitle">Отметь нужное или выбери профиль и открой ссылки на скачивание в браузере</div>
       </div>
       <div class="toolbar">
@@ -352,7 +376,8 @@
             desc: "Основной браузер для большинства пользователей",
             tag: "Оф. сайт",
             url: "https://www.google.com/chrome/",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/chrome.png"
           },
           {
             id: "firefox",
@@ -360,7 +385,8 @@
             desc: "Быстрый и гибкий браузер, хорош в том числе на слабом железе",
             tag: "Оф. сайт",
             url: "https://www.mozilla.org/ru/firefox/new/",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/firefox.png"
           },
           {
             id: "yandex-browser",
@@ -368,7 +394,8 @@
             desc: "Популярный браузер в РФ со встроенными сервисами",
             tag: "Оф. сайт",
             url: "https://browser.yandex.ru/",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/yandex.png"
           },
           {
             id: "brave",
@@ -376,7 +403,8 @@
             desc: "Браузер на Chromium со встроенной блокировкой рекламы и трекеров",
             tag: "Оф. сайт",
             url: "https://brave.com/download/",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/brave.png"
           },
           {
             id: "zen",
@@ -384,7 +412,8 @@
             desc: "Современный минималистичный браузер на базе Firefox",
             tag: "GitHub",
             url: "https://github.com/zen-browser/desktop/releases",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/zen.png"
           }
         ]
       },
@@ -398,7 +427,8 @@
             desc: "Защита ПК и проверка файлов в реальном времени",
             tag: "Оф. сайт",
             url: "https://www.kaspersky.ru/downloads/free-antivirus",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/kaspersky.png"
           },
           {
             id: "drweb-cureit",
@@ -406,7 +436,8 @@
             desc: "Бесплатная лечащая утилита для быстрой проверки заражённой системы",
             tag: "Оф. сайт",
             url: "https://free.drweb.ru/cureit/",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/drweb.png"
           },
           {
             id: "malwarebytes",
@@ -414,7 +445,8 @@
             desc: "Сканер рекламного ПО, троянов и нежелательных модулей",
             tag: "Оф. сайт",
             url: "https://www.malwarebytes.com/mwb-download",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/malwarebytes.png"
           },
           {
             id: "kvrt",
@@ -422,7 +454,8 @@
             desc: "Портативный сканер для глубокой проверки после лечения ПК",
             tag: "Оф. сайт",
             url: "https://www.kaspersky.ru/downloads/free-virus-removal-tool",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/kvrt.png"
           }
         ]
       },
@@ -436,7 +469,8 @@
             desc: "Актуальные сборки обхода DPI для YouTube, Discord и сервисов",
             tag: "GitHub",
             url: "https://github.com/Flowseal/zapret-discord-youtube/releases",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/zapret.png"
           },
           {
             id: "goodbyedpi",
@@ -444,7 +478,8 @@
             desc: "Лёгкий классический обход DPI для Windows",
             tag: "GitHub",
             url: "https://github.com/ValdikSS/GoodbyeDPI/releases",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/goodbyedpi.png"
           },
           {
             id: "happ",
@@ -452,7 +487,8 @@
             desc: "Удобный клиент для ключей и подписок",
             tag: "GitHub",
             url: "https://github.com/Happ-proxy/happ-desktop/releases",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/happ.png"
           },
           {
             id: "hiddify",
@@ -460,7 +496,8 @@
             desc: "Кроссплатформенный клиент для VLESS / Reality / Xray",
             tag: "GitHub",
             url: "https://github.com/hiddify/hiddify-app/releases",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/hiddify.png"
           },
           {
             id: "amnezia",
@@ -468,7 +505,8 @@
             desc: "Клиент с поддержкой протоколов обфускации",
             tag: "GitHub",
             url: "https://github.com/amnezia-vpn/amnezia-client/releases",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/amnezia.png"
           },
           {
             id: "v2rayn",
@@ -476,7 +514,8 @@
             desc: "Гибкий прокси-клиент под Windows",
             tag: "GitHub",
             url: "https://github.com/2dust/v2rayN/releases",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/v2rayn.png"
           }
         ]
       },
@@ -490,7 +529,8 @@
             desc: "Официальный десктоп-клиент Telegram",
             tag: "Оф. сайт",
             url: "https://desktop.telegram.org/",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/telegram.png"
           },
           {
             id: "ayugram",
@@ -498,7 +538,8 @@
             desc: "Форк Telegram Desktop с расширенными настройками",
             tag: "GitHub",
             url: "https://github.com/AyuGram/AyuGramDesktop/releases",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/ayugram.png"
           },
           {
             id: "whatsapp",
@@ -506,7 +547,8 @@
             desc: "Настольный мессенджер WhatsApp",
             tag: "Оф. сайт",
             url: "https://www.whatsapp.com/download",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/whatsapp.png"
           },
           {
             id: "anydesk",
@@ -514,7 +556,8 @@
             desc: "Быстрый удалённый доступ для поддержки клиентов",
             tag: "Оф. сайт",
             url: "https://anydesk.com/ru/downloads/windows",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/anydesk.png"
           },
           {
             id: "rustdesk",
@@ -522,7 +565,8 @@
             desc: "Открытый клиент удалённого доступа",
             tag: "GitHub",
             url: "https://github.com/rustdesk/rustdesk/releases",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/rustdesk.png"
           }
         ]
       },
@@ -536,7 +580,8 @@
             desc: "Лёгкий и чистый торрент-клиент без лишней рекламы",
             tag: "Оф. сайт",
             url: "https://www.qbittorrent.org/download",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/qbittorrent.png"
           },
           {
             id: "vlc",
@@ -544,7 +589,8 @@
             desc: "Всеядный видео- и аудиоплеер со встроенными кодеками",
             tag: "Оф. сайт",
             url: "https://www.videolan.org/vlc/",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/vlc.png"
           },
           {
             id: "mpc-be",
@@ -552,7 +598,8 @@
             desc: "Лёгкий плеер для видео, хорошо идёт на старом железе",
             tag: "GitHub",
             url: "https://sourceforge.net/projects/mpcbe/",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/mpcbe.png"
           },
           {
             id: "aimp",
@@ -560,7 +607,8 @@
             desc: "Удобный аудиоплеер и конвертер музыки",
             tag: "Оф. сайт",
             url: "https://www.aimp.ru/",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/aimp.png"
           }
         ]
       },
@@ -574,7 +622,8 @@
             desc: "Быстрый архиватор (ZIP, 7z, RAR, ISO, TAR)",
             tag: "Оф. сайт",
             url: "https://www.7-zip.org/",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/7zip.png"
           },
           {
             id: "winrar",
@@ -582,7 +631,8 @@
             desc: "Классический архиватор для работы с архивами",
             tag: "Оф. сайт",
             url: "https://www.win-rar.com/download.html",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/winrar.png"
           },
           {
             id: "vcredist",
@@ -590,7 +640,8 @@
             desc: "Библиотеки Visual C++ для запуска игр и программ",
             tag: "Релиз / Сайт",
             url: "https://www.techpowerup.com/download/visual-c-redistributable-runtime-package-all-in-one/",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/vcredist.png"
           },
           {
             id: "directx-web",
@@ -598,7 +649,8 @@
             desc: "Компоненты DirectX для старых и новых приложений",
             tag: "Microsoft",
             url: "https://www.microsoft.com/en-us/download/details.aspx?id=35",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/directx.png"
           },
           {
             id: "crystaldiskinfo",
@@ -606,7 +658,8 @@
             desc: "SMART-диагностика HDD / SSD и проверка здоровья накопителей",
             tag: "Оф. сайт",
             url: "https://crystalmark.info/en/software/crystaldiskinfo/",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/crystaldiskinfo.png"
           },
           {
             id: "cpuz",
@@ -614,7 +667,8 @@
             desc: "Характеристики процессора, ОЗУ, материнской платы и видеокарты",
             tag: "Оф. сайт",
             url: "https://www.cpuid.com/softwares/cpu-z.html",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/cpuz.png"
           },
           {
             id: "hwmonitor",
@@ -622,7 +676,8 @@
             desc: "Мониторинг температур, напряжений и оборотов кулеров",
             tag: "Оф. сайт",
             url: "https://www.cpuid.com/softwares/hwmonitor.html",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/hwmonitor.png"
           },
           {
             id: "wiztree",
@@ -630,7 +685,8 @@
             desc: "Мгновенный анализ, какие папки и файлы забивают диск",
             tag: "Оф. сайт",
             url: "https://diskanalyzer.com/",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/wiztree.png"
           },
           {
             id: "revo-uninstaller",
@@ -638,7 +694,8 @@
             desc: "Удаление программ вместе с хвостами в реестре и папках",
             tag: "Оф. сайт",
             url: "https://www.revouninstaller.com/products/revo-uninstaller-free/",
-            zipUrl: ""
+            zipUrl: "",
+            icon: "images/revo.png"
           }
         ]
       }
@@ -790,10 +847,14 @@
                   const zipBtn = it.zipUrl
                     ? `<a class="open-link zip-btn" href="${it.zipUrl}" download>ZIP</a>`
                     : "";
+                  // Место для иконки программы (раскомментируй, когда добавишь картинки в папку images/):
+                  // const iconHtml = it.icon ? `<div class="app-icon" aria-hidden="true"><img src="${it.icon}" alt="" /></div>` : "";
+                  const iconHtml = ``;
                   return `
                     <div class="item">
                       <div class="item-left">
                         <input type="checkbox" data-id="${it.id}" ${checked} />
+                        ${iconHtml}
                         <div class="item-body">
                           <div class="item-name">${it.name}</div>
                           <div class="item-desc">${it.desc}</div>
